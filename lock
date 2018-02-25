@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Description: Blur and lock the screen
+# Dependencies: imagemagick and i3lock
+
+tmp="/tmp/screen.png"
+
+# Take a screenshot 
+import -window root "$tmp"
+
+# Blur it
+convert "$tmp" -scale 10% -scale 1000% "$tmp"
+
+# Lock the screen with that shot
+i3lock -u -i "$tmp"
