@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Description: Close the last notification and display a new one
+# Dependencies: dunst, libnotify, xdotool
+
+xdotool key "ctrl+space"
+notify-send "$1"
