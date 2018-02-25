@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#
+# Description: Take a screenshot and save it
+# Dependency: imagemagick
+
+dir="${HOME}/Pictures/Screenshots"
+mkdir -p "$dir" || exit 1
+
+date=`date +%Y-%m-%d`
+time=`date +%H-%M-%S`
+
+mkdir -p "${dir}/${date}"
+scr="${dir}/${date}/${date}-${time}"
+
+for number in 3 2 1
+do
+    notf "${number}..."
+    sleep 1
+done
+
+notf "Shot taken !"
+
+import -window root "${scr}.png" &
