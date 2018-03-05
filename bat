@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Description: Display remaining time of the battery
+# Description: Display the remaining time of the battery
 # Dependency: acpi
 
 bat=`acpi | awk '{ print $5 }'`

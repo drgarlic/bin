@@ -43,6 +43,6 @@ sync ".xinitrc"
 
 echo -e "\nbin\n"
 
-echo "Syncing bin..."
+echo -e "Syncing bin...\n"
 rsync -r ${HOME}/.bin/ ${git}/bin &> /dev/null
 [ $? -ne 0 ] && echo "ERROR: ~/${HOME}/.bin doesn't exist" && return 0
