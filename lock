@@ -3,6 +3,8 @@
 # Description: Blur and lock the screen
 # Dependencies: imagemagick and i3lock
 
+sleep 0.1
+
 tmp="/tmp/screen.png"
 tmp2="/tmp/lock.png"
 tmp3="/tmp/bg.png"

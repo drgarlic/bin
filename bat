@@ -1,17 +1,13 @@
 #!/usr/bin/env bash
 #
-# Description: Display the battery level or status
+# Description: Display remaining time of the battery
 # Dependency: acpi
 
-percent=`cat /sys/class/power_supply/BAT0/capacity`
-power=`cat /sys/class/power_supply/BAT0/status`
-	
-if [[ $power == "Charging" ]]
-then
-	echo "eat"
-elif [[ $percent == 100 ]]
-then
-	echo "ful"
-else
-	echo ${percent}%
-fi
+bat=`acpi | awk '{ print $5 }'`
+
+h=`echo $bat | cut -d ":" -f1`
+h=$(( 10#$h ))
+m=`echo $bat | cut -d ":" -f2`
+m=$(( 10#$m ))
+
+notf "Remaining: ${h}h ${m}mn"

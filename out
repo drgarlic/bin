@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# Description: Sync files to git folder
+# Dependency: rsync
+
+git="${HOME}/git"
+
+print() {
+    name=$1
+    echo "Syncing ${name}..."
+}
+
+sync() {
+    file="${HOME}/${1}"
+    rsync -r ${file} ${git}/dots/${name} &> /dev/null
+    [ $? -ne 0 ] && echo "ERROR: ~/${file} doesn't exist" && return 0
+}
+
+echo -e "\ndots\n"
+
+print "2bwm"
+sync ".config/2bwm/config.h"
+
+print "bash"
+sync ".bashrc"
+sync ".bash_profile"
+
+print "dunst"
+sync ".config/dunst/"
+
+print "nvim"
+sync ".config/nvim/"
+
+print "polybar"
+sync ".config/polybar/"
+
+print "redshift"
+sync ".config/redshift/"
+
+print "x"
+sync ".Xresources"
+sync ".xinitrc"
+
+echo -e "\nbin\n"
+
+echo "Syncing bin..."
+rsync -r ${HOME}/.bin/ ${git}/bin &> /dev/null
+[ $? -ne 0 ] && echo "ERROR: ~/${HOME}/.bin doesn't exist" && return 0

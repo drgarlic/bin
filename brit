@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+#
+# Description: Change the brightness of the screen
+# Dependency: xbacklight
+
+value=10
+max=95
+
+current() {
+    current=`xbacklight -get`
+    current=${current%.*}
+}
+
+current
+
+case $1 in
+"inc")
+    if [ $current -eq 2  ]
+    then
+	xbacklight -set 5
+    elif [ $current -le 15 ]
+    then
+	xbacklight -inc 5
+    elif [ $current -le 50 ]
+    then
+	xbacklight -inc 10
+    elif [ $current -ge 60 ]
+    then
+	xbacklight -inc 20
+    fi
+;;
+"dec")
+    if [ $current -eq 5  ]
+    then
+	xbacklight -set 2
+    elif [ $current -gt 60 ]
+    then
+	xbacklight -dec 20
+    elif [ $current -gt 20 ]
+    then
+	xbacklight -dec 10
+    elif [ $current -gt 5 ]
+    then
+	xbacklight -dec 5
+    fi
+;;
+"reset")
+    xbacklight -set 30
+;;
+esac
+
+current
+
+if [ $current -eq 2  ]
+then
+    pctg=0
+elif [ $current -le 20 ]
+then
+    pctg=$(( ( $current / 5 ) * 10 ))
+elif [ $current -le 60 ]
+then
+    pctg=$(( $current + 20 ))
+elif [ $current -eq 80 ]
+then
+    pctg=90
+elif [ $current -gt 80 ]
+then
+    pctg=$current
+fi
+
+notf "Brightness: ${pctg}%"
