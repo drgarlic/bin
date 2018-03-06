@@ -5,44 +5,61 @@
 
 git="${HOME}/git"
 
+title() {
+    echo -e "\n$1\n"
+}
+
 print() {
     name=$1
     echo "Syncing ${name}..."
 }
 
 sync() {
+    rsync -r ${HOME}/.${name}/ ${git}/${name} &> /dev/null
+    [ $? -ne 0 ] && echo "ERROR: ~/${HOME}/.${name} doesn't exist" && return 0
+}
+
+sync_dots() {
     file="${HOME}/${1}"
     rsync -r ${file} ${git}/dots/${name} &> /dev/null
     [ $? -ne 0 ] && echo "ERROR: ~/${file} doesn't exist" && return 0
 }
 
-echo -e "\ndots\n"
+title "art"
+
+print "art"
+sync
+
+title "bin"
+
+print "bin"
+sync
+
+print "art"
+sync
+title "dots"
 
 print "2bwm"
-sync ".config/2bwm/config.h"
+sync_dots ".config/2bwm/config.h"
 
 print "bash"
-sync ".bashrc"
-sync ".bash_profile"
+sync_dots ".bashrc"
+sync_dots ".bash_profile"
 
 print "dunst"
-sync ".config/dunst/"
+sync_dots ".config/dunst/"
 
 print "nvim"
-sync ".config/nvim/"
+sync_dots ".config/nvim/"
 
 print "polybar"
-sync ".config/polybar/"
+sync_dots ".config/polybar/"
 
 print "redshift"
-sync ".config/redshift/"
+sync_dots ".config/redshift/"
 
 print "x"
-sync ".Xresources"
-sync ".xinitrc"
+sync_dots ".Xresources"
+sync_dots ".xinitrc"
 
-echo -e "\nbin\n"
-
-echo -e "Syncing bin...\n"
-rsync -r ${HOME}/.bin/ ${git}/bin &> /dev/null
-[ $? -ne 0 ] && echo "ERROR: ~/${HOME}/.bin doesn't exist" && return 0
+echo
