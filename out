@@ -3,7 +3,7 @@
 # Description: Sync files to git folder
 # Dependency: rsync
 
-git="${HOME}/git"
+git="${HOME}/.git"
 
 title() {
     echo -e "\n$1\n"
@@ -57,6 +57,9 @@ sync_dots ".config/polybar/"
 
 print "redshift"
 sync_dots ".config/redshift/"
+
+print "wpa_supplicant"
+sync_dots ".config/wpa_supplicant"
 
 print "x"
 sync_dots ".Xresources"

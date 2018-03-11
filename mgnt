@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+#
+# Description: Get magnets from the pirate bay web site
+# Dependencies: wget, xclip
+
+max=10
+
+name=$@
+name=${name/ /%20}
+[ -z $name ] && echo "ERROR: Please provide a name" && exit 1
+
+tpb="${HOME}/.tmp/tpb"
+mkdir -p ${HOME}/.tmp
+
+echo "Searching..."
+wget -O $tpb "https://thepiratebay.org/search/$name/0/99/0" &> /dev/null
+[ ! $? -eq 0 ] && echo "ERROR: tpb is down" && exit 1
+
+error=`cat $tpb | grep "502: Bad gateway"`
+[ -n "$error" ] && echo "error=$error" && echo "ERROR: tpb is unavailable" && exit 1
+
+list=`cat $tpb | grep "magnet:?" | cut -f2 -d"\""`
+list=($list)
+
+magnets=()
+count=1
+
+for i in "${list[@]}"
+do
+    [ $count -gt $max ] && break
+    
+    tempo=${i##*dn=}
+    tempo=`echo $tempo | cut -f1 -d"&"`
+    echo "$count) $tempo"
+
+    magnets+=($i)
+
+    count=$(( $count + 1 ))
+done
+
+count=$(( $count - 1 ))
+
+read -p "Enter a number: " nb
+nb=$(( $nb - 1 ))
+
+echo ${magnets[$nb]} | xclip -selection c
+echo "Magnet copied !"
