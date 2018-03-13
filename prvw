@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+old_ctheme=`cat ${HOME}/.colors | head -2 | tail -1 | cut -f2 -d" "`
+
+preview() {
+    ctheme=$1
+    art -`echo "$1" | head -c 1`
+    sleep 0.5
+    urxvtc -geometry 54x9 -e colr -s
+    sleep 0.5
+    theme=`cat ${HOME}/.colors | head -1 | cut -f2 -d" "`
+    mv ${HOME}/.themes/${theme}/preview.png ${HOME}/.themes/${theme}/${1}.png  
+}
+
+preview "dark"
+preview "light"
+
+cp -r ${HOME}/.themes/${theme} ${HOME}/.git/themes/
+
+git="${HOME}/.git/themes"
+readme=${git}/README.md
+
+echo "# Themes" > $readme
+
+for entry in ${git}/*
+do
+    if [ -d $entry ]
+    then
+        entry=$(basename $entry) 
+        echo -e "\n### ${entry}" >> $readme
+        echo -e "\n![${entry} dark](/${entry}/dark.png)" >> $readme
+        echo -e "\n![${entry} light](/${entry}/light.png)" >> $readme
+    fi
+done
+
+art -`echo "$old_ctheme" | head -c 1`

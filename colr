@@ -42,3 +42,10 @@ echo -en "         ${bgry}         ${bred}         ${bgrn}         ${bblu}      
 
 echo -en " ${xblk}  ${fgry}${xgry}  ${fred}${xred}  ${fgrn}${xgrn}  ${fblu}${xblu}  ${fwht}${xwht}\n"
 echo -e "\n"
+
+if [[ -n "$1" && "$1" == "-s" ]]
+then
+    sleep 0.1
+    theme=`cat ${HOME}/.colors | head -1 | cut -f2 -d" "`
+    scrot -u ${HOME}/.themes/${theme}/preview.png
+fi

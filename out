@@ -50,16 +50,19 @@ print "dunst"
 sync_dots ".config/dunst/"
 
 print "nvim"
-sync_dots ".config/nvim/"
+sync_dots ".config/nvim/init.vim"
 
 print "polybar"
 sync_dots ".config/polybar/"
+
+print "ranger"
+sync_dots ".config/ranger/"
 
 print "redshift"
 sync_dots ".config/redshift/"
 
 print "wpa_supplicant"
-sync_dots ".config/wpa_supplicant"
+sync_dots ".config/wpa_supplicant/"
 
 print "x"
 sync_dots ".Xresources"

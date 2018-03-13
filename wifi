@@ -12,5 +12,6 @@ sudo kill `ps aux | grep "dhcpcd" | awk '{ print $2 }' | head -1` &> /dev/null
 
 [ -n "$1" ] && exit 1
 
+sudo macchanger -r $card
 sudo wpa_supplicant -B -i $card -c $dir/wifi.conf &> /dev/null
 sudo dhcpcd $card &> /dev/null
