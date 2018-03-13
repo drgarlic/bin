@@ -6,12 +6,30 @@
 dir="${HOME}/.config/wpa_supplicant"
 mkdir -p $dir
 card=`ip link | grep 2 | cut -f2 -d" " | sed 's/.$//'`
+ssid=`iw dev wlp1s0 link | grep "SSID" | xargs`
 
-sudo kill `ps aux | grep "wpa_supplicant" | awk '{ print $2 }' | head -1` &> /dev/null
-sudo kill `ps aux | grep "dhcpcd" | awk '{ print $2 }' | head -1` &> /dev/null
+case $1 in
+    "on")
+        sudo macchanger -r $card
+        sudo wpa_supplicant -B -i $card -c $dir/wifi.conf &> /dev/null
+        sudo dhcpcd $card &> /dev/null
+    ;;
+    "off")
+        sudo kill `ps aux | grep "wpa_supplicant" | awk '{ print $2 }' | head -1` &> /dev/null
+        sudo kill `ps aux | grep "dhcpcd" | awk '{ print $2 }' | head -1` &> /dev/null
+    ;;
+    "ssid")
+        [ -z "$ssid" ] && ssid="SSID: None"
+        notf "$ssid"
+    ;;
+    "status")
+        [ -z "$ssid" ] && wifi="off" || wifi="on"
+        notf "Wifi: $wifi"
+    ;;
+    *)
+        echo "ERROR: Wrong parameter, please try again"
+        exit 1
+    ;;
+esac
 
-[ -n "$1" ] && exit 1
 
-sudo macchanger -r $card
-sudo wpa_supplicant -B -i $card -c $dir/wifi.conf &> /dev/null
-sudo dhcpcd $card &> /dev/null
