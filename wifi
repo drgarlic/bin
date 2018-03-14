@@ -10,6 +10,7 @@ ssid=`iw dev wlp1s0 link | grep "SSID" | xargs`
 
 case $1 in
     "on")
+        [ -n "$ssid" ] && echo "Wifi already on" && exit 0
         sudo macchanger -r $card
         sudo wpa_supplicant -B -i $card -c $dir/wifi.conf &> /dev/null
         sudo dhcpcd $card &> /dev/null
@@ -18,6 +19,11 @@ case $1 in
         sudo kill `ps aux | grep "wpa_supplicant" | awk '{ print $2 }' | head -1` &> /dev/null
         sudo kill `ps aux | grep "dhcpcd" | awk '{ print $2 }' | head -1` &> /dev/null
     ;;
+    "restart")
+        wifi off
+        sleep 0.2
+        wifi on
+    ;;
     "ssid")
         [ -z "$ssid" ] && ssid="SSID: None"
         notf "$ssid"
@@ -25,6 +31,9 @@ case $1 in
     "status")
         [ -z "$ssid" ] && wifi="off" || wifi="on"
         notf "Wifi: $wifi"
+    ;;
+    "")
+        wifi on
     ;;
     *)
         echo "ERROR: Wrong parameter, please try again"
