@@ -5,6 +5,9 @@
 # Set the location of the file containing colors
 colors="${HOME}/.colors"
 
+# Get parameters
+[[ -n "$1" && "$1" == "-q" ]] && quiet="true"
+
 # If file doesn't exist, abort
 [ ! -f $colors ] && echo "Please create a theme first" && exit 1
 
@@ -39,8 +42,7 @@ echo -en "         ${bgry}         ${bred}         ${bgrn}         ${bblu}      
 echo -en "         ${bgry}         ${bred}         ${bgrn}         ${bblu}         ${bblk}         ${bwht}\n"
 echo -en "         ${bgry}         ${bred}         ${bgrn}         ${bblu}         ${bblk}         ${bwht}\n"
 echo -en "         ${bgry}         ${bred}         ${bgrn}         ${bblu}         ${bblk}         ${bwht}\n"
-
-echo -en " ${xblk}  ${fgry}${xgry}  ${fred}${xred}  ${fgrn}${xgrn}  ${fblu}${xblu}  ${fwht}${xwht}\n"
+[[ "$quiet" != "true" ]] && echo -en " ${xblk}  ${fgry}${xgry}  ${fred}${xred}  ${fgrn}${xgrn}  ${fblu}${xblu}  ${fwht}${xwht}\n"
 echo -e "\n"
 
 if [[ -n "$1" && "$1" == "-s" ]]

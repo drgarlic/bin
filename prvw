@@ -19,7 +19,7 @@ print() {
 
 preview "$old_ctheme"
 tmp_ctheme=`[[ "$old_ctheme" == "dark" ]] && echo "light" || echo "dark"`
-art -s
+art -q -s
 preview "$tmp_ctheme"
 
 cp -r ${dir}/${theme} ${git}
@@ -39,4 +39,4 @@ do
     fi
 done
 
-art -s
+art -q -s

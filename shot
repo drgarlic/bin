@@ -12,11 +12,16 @@ time=`date +%H-%M-%S`
 mkdir -p "${dir}/${date}"
 scr="${dir}/${date}/${date}-${time}"
 
-for number in 3 2 1
-do
-    notf "${number}..."
-    sleep 1
-done
+if [[ "$1" == "-c" ]]
+then
+    for number in 3 2 1
+    do
+        notf "${number}..."
+        sleep 1
+    done
+else
+    sleep 3
+fi
 
 notf "Shot taken !"
 

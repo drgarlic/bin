@@ -3,5 +3,8 @@
 # Description: Close the last notification and display a new one
 # Dependencies: dunst, libnotify, xdotool
 
-xdotool key "ctrl+space"
-notify-send "$1"
+str="$1"
+[ -z "$str" ] && str="Test"
+
+xdotool key "ctrl+space" &> /dev/null
+notify-send "$str"
