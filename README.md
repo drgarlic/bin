@@ -10,6 +10,8 @@
 
 **lock**: Pixelate the screen, add a popup and lock the screen. (`lock.png` is needed since `imagemagick` can't handle bitmap fonts)
 
+**loop**: Preview of art + unsplash
+
 **mgnt**: Generate a list of magnets from a torrent website
 
 **notf**: Display a notification and close the previous one if still visible

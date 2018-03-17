@@ -6,12 +6,12 @@
 dir="${HOME}/.config/wpa_supplicant"
 mkdir -p $dir
 card=`ip link | grep 2 | cut -f2 -d" " | sed 's/.$//'`
-ssid=`iw dev wlp1s0 link | grep "SSID" | xargs`
+ssid=`iw dev ${card} link | grep "SSID" | xargs`
 
 case $1 in
     "on")
         [ -n "$ssid" ] && echo "Wifi already on" && exit 0
-        sudo macchanger -r $card
+        #sudo macchanger -r $card
         sudo wpa_supplicant -B -i $card -c $dir/wifi.conf &> /dev/null
         sudo dhcpcd $card &> /dev/null
     ;;
