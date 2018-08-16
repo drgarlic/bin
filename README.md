@@ -1,25 +1,17 @@
 # Scripts
 
-**bat**: Display a notification with the remaining battery time
+**abet**: Yet another Ascii alphaBET
 
-**brit**: Change the backlight of the screen and display a notification with the current brightness level
+**brit**: A minimal brightness manager
 
-**colr**: Display the color palette with their values
+**lock**: A minimal lock script
 
-**draw**: Let you draw terminals on the screen with your mouse
+**mgnt**:  A minimal magnet getter
 
-**lock**: Pixelate the screen, add a popup and lock the screen. (`lock.png` is needed since `imagemagick` can't handle bitmap fonts)
+**port**: A very simple synchronizer
 
-**loop**: Preview of art + unsplash
+**rmng**: Display the battery life
 
-**mgnt**: Generate a list of magnets from a torrent website
+**shot**: A minimal screenshot manager
 
-**notf**: Display a notification and close the previous one if still visible
-
-**out**: Sync local files to the `git` folders
-
-**prvw**: Generate color palette previews for the `thms` repo
-
-**shot**: Take a screenshot of the screen
-
-**wifi**: Wifi manager
+**wi**: A minimal wifi manager
