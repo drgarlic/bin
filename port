@@ -1,0 +1,142 @@
+#!/usr/bin/env bash
+#
+#  ||''.  //\  ||''. ['|']
+#  ||--' ||  | ||-+'   |  
+#  ||     \\/  ||  \  .|  
+#
+# Description:              A very simple synchronizer
+# Dependencies:             rsync
+# Optionnal dependencies:   none
+# Author:                   gawlk
+# Contributors:             none
+
+# ---
+# SETUP
+# ---
+
+tbw_dir="${HOME}/.config/2bwm"
+art_dir="${HOME}/.art"
+bin_dir="${HOME}/.bin"
+bsp_dir="${HOME}/.config/bspwm"
+git_dir="${HOME}/.git"
+lib_dir="${HOME}/.libs"
+lmn_dir="${HOME}/.config/lemonbar"
+nvm_dir="${HOME}/.config/nvim"
+red_dir="${HOME}/.config/redshift"
+rgr_dir="${HOME}/.config/ranger"
+sxh_dir="${HOME}/.config/sxhkd"
+thm_dir="${HOME}/.config/art/themes"
+tmx_dir="${HOME}/.config/tmux"
+wpa_dir="${HOME}/.config/wpa_supplicant"
+
+mkdir -p "$tbw_dir"
+mkdir -p "$art_dir"
+mkdir -p "$bin_dir"
+mkdir -p "$bsp_dir"
+mkdir -p "$git_dir"
+mkdir -p "$lib_dir"
+mkdir -p "$lmn_dir"
+mkdir -p "$nvm_dir"
+mkdir -p "$red_dir"
+mkdir -p "$rgr_dir"
+mkdir -p "$sxh_dir"
+mkdir -p "$thm_dir"
+mkdir -p "$tmx_dir"
+mkdir -p "$wpa_dir"
+
+# ---
+# ART
+# ---
+
+[[ ! -d "${git_dir}/art" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/art.git"
+
+rsync -au --exclude ".git" --exclude "README.md" ${git_dir}/art/* $art_dir
+
+rsync -au --exclude "lamp" ${art_dir}/* ${git_dir}/art
+
+# ---
+# BIN
+# ---
+
+[[ ! -d "${git_dir}/bin" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/bin.git"
+
+rsync -au --exclude ".git" --exclude "README.md" ${git_dir}/bin/* $bin_dir
+
+rsync -au ${bin_dir}/* ${git_dir}/bin
+
+# ---
+# DOTS
+# ---
+
+[[ ! -d "${git_dir}/dots" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/dots.git"
+
+rsync -au ${git_dir}/dots/2bwm/* $tbw_dir
+rsync -au ${git_dir}/dots/art/* ${HOME}/.config/art
+rsync -au ${git_dir}/dots/bash/.[^.]* $HOME
+rsync -au ${git_dir}/dots/bspwm/* $bsp_dir
+rsync -au ${git_dir}/dots/lemonbar/* $lmn_dir
+rsync -au ${git_dir}/dots/nvim/* $nvm_dir
+rsync -au ${git_dir}/dots/ranger/* $rgr_dir
+rsync -au ${git_dir}/dots/redshift/* $red_dir
+rsync -au ${git_dir}/dots/sxhkd/* $sxh_dir
+rsync -au ${git_dir}/dots/tmux/* $tmx_dir
+rsync -au ${git_dir}/dots/wpa_supplicant/* $wpa_dir
+rsync -au ${git_dir}/dots/x/.[^.]* $HOME
+
+rsync -au ${tbw_dir}/2bwm.c ${git_dir}/dots/2bwm
+rsync -au ${tbw_dir}/config.h ${git_dir}/dots/2bwm
+rsync -au ${HOME}/.config/art/* ${git_dir}/dots/art
+rsync -au ${HOME}/.bash_profile ${git_dir}/dots/bash
+rsync -au ${HOME}/.bashrc ${git_dir}/dots/bash
+rsync -au ${bsp_dir}/* ${git_dir}/dots/bspwm
+rsync -au ${lmn_dir}/* ${git_dir}/dots/lemonbar
+rsync -au ${nvm_dir}/init.vim ${git_dir}/dots/nvim
+rsync -au ${rgr_dir}/* ${git_dir}/dots/ranger
+rsync -au ${red_dir}/* ${git_dir}/dots/redshift
+rsync -au ${sxh_dir}/* ${git_dir}/dots/sxhkd
+rsync -au ${tmx_dir}/* ${git_dir}/dots/tmux
+rsync -au ${wpa_dir}/* ${git_dir}/dots/wpa_supplicant
+rsync -au ${HOME}/.Xresources ${git_dir}/dots/x
+rsync -au ${HOME}/.Xresources.colors ${git_dir}/dots/x
+rsync -au ${HOME}/.xinitrc ${git_dir}/dots/x
+
+# ---
+# LAMP
+# ---
+
+[[ ! -d "${git_dir}/lamp" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/lamp.git"
+
+rsync -au ${git_dir}/lamp/lamp $art_dir
+
+rsync -au ${art_dir}/lamp ${git_dir}/lamp
+
+# ---
+# LOGS
+# ---
+
+[[ ! -d "${git_dir}/log" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/log.git"
+
+rsync -au ${git_dir}/log/log $lib_dir
+
+rsync -au ${lib_dir}/log ${git_dir}/log
+
+# ---
+# PURE
+# ---
+
+[[ ! -d "${git_dir}/pure" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/pure.git"
+
+rsync -au ${git_dir}/pure/pure $lib_dir
+
+rsync -au ${lib_dir}/pure ${git_dir}/pure
+
+# ---
+# THMS
+# ---
+
+[[ ! -d "${git_dir}/thms" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/thms.git"
+
+rsync -au --exclude ".git" --exclude "README.md" ${git_dir}/thms/* $thm_dir
+
+rsync -au ${thm_dir}/* --exclude "unsplash-artist" --exclude "unsplash-collection" \
+    --exclude "unsplash-daily" --exclude "unsplash-random" ${git_dir}/thms

@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+#  ||''. ||\/| |\  |  //'|
+#  ||-+' ||  | ||\ | ||  _
+#  ||  \ ||  | || \|  \\_/
+#
+# Description:              Display the battery life
+# Dependencies:             acpi
+# Optionnal dependencies:   notf
+# Author:                   gawlk
+# Contributors:             none
+
+bat=$( acpi | awk '{ print $5 }' )
+
+h=$( printf '%s\n' "$bat" | cut -d ":" -f1 )
+h=$(( 10#$h ))
+m=$( printf '%s\n' "$bat" | cut -d ":" -f2 )
+m=$(( 10#$m ))
+
+notf "Remaining: ${h}h ${m}mn" &> /dev/null || printf '%s\n' "Remaining: ${h}h ${m}mn"

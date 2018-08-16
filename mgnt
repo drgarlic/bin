@@ -1,47 +1,78 @@
 #!/usr/bin/env bash
 #
-# Description: Get magnets from the pirate bay web site
-# Dependencies: wget, xclip
+#  ||\/|  //'| |\  | ['|']
+#  ||  | ||  _ ||\ |   |  
+#  ||  |  \\_/ || \|  .|  
+#
+# Description:              A minimal magnet getter from the Pirate Bay
+# Dependencies:             wget, xclip
+# Optionnal dependencies:   notf
+# Author:                   gawlk
+# Contributors:             none
+
+# ---
+# IMPORTS
+# ---
+
+. log
+
+# ---
+# SETUP
+# ---
 
 max=10
 
-name=$@
-name=${name/ /%20}
-[ -z $name ] && echo "ERROR: Please provide a name" && exit 1
+# ---
+# MAIN
+# ---
 
-tpb="${HOME}/.tmp/tpb"
-mkdir -p ${HOME}/.tmp
+mgnt.main() {
+    local name=$@
+    name="${name/ /%20}"
+    [[ -z "$name" ]] && log.error "mgnt" "Please provide a correct name."
 
-echo "Searching..."
-wget -O $tpb "https://thepiratebay.org/search/$name/0/99/0" &> /dev/null
-[ ! $? -eq 0 ] && echo "ERROR: tpb is down" && exit 1
+    local tmp="/tmp/tpb"
 
-error=`cat $tpb | grep "502: Bad gateway"`
-[ -n "$error" ] && echo "error=$error" && echo "ERROR: tpb is unavailable" && exit 1
+    log.info "mgnt" "Searching..."
 
-list=`cat $tpb | grep "magnet:?" | cut -f2 -d"\""`
-list=($list)
+    wget -O $tmp -q --timeout=20 "https://thepiratebay.org/search/${name}/0/99/0" || \
+        log.error "arguments" "TPB servers are unreachable."
 
-magnets=()
-count=1
+    [[ -n "$( cat $tmp | grep "502: Bad gateway" )" ]] && log.error "arguments" "TPB is unavailable"
 
-for i in "${list[@]}"
-do
-    [ $count -gt $max ] && break
+    local list=( $( grep "magnet:?" < $tmp | cut -f2 -d"\"" ) )
+
+    local magnets=( )
+    local count=1
+
+    for i in "${list[@]}"
+    do
+        [[ $count -gt $max ]] && break
+        
+        local tempo=${i##*dn=}
+        tempo=$( printf '%s\n' "$tempo" | cut -f1 -d"&" )
+        
+        printf '%s\n' "${count}) ${tempo}"
+
+        magnets+=( $i )
+
+        (( count++ ))
+    done
+
+    (( count-- ))
+
+    printf '%s\n' "Enter a number:"
+    read nb
+
+    (( nb-- ))
+
+    printf '%s' ${magnets[$nb]} | xclip -selection c
     
-    tempo=${i##*dn=}
-    tempo=`echo $tempo | cut -f1 -d"&"`
-    echo "$count) $tempo"
+    log.info "mgnt" "Magnet copied !"
+}
 
-    magnets+=($i)
+# ---
+# LAUNCH
+# ---
 
-    count=$(( $count + 1 ))
-done
-
-count=$(( $count - 1 ))
-
-read -p "Enter a number: " nb
-nb=$(( $nb - 1 ))
-
-echo ${magnets[$nb]} | xclip -selection c
-echo "Magnet copied !"
+mgnt.main "$@"
