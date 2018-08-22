@@ -14,7 +14,6 @@
 # SETUP
 # ---
 
-tbw_dir="${HOME}/.config/2bwm"
 art_dir="${HOME}/.art"
 bin_dir="${HOME}/.bin"
 bsp_dir="${HOME}/.config/bspwm"
@@ -25,11 +24,11 @@ nvm_dir="${HOME}/.config/nvim"
 red_dir="${HOME}/.config/redshift"
 rgr_dir="${HOME}/.config/ranger"
 sxh_dir="${HOME}/.config/sxhkd"
+tbw_dir="${HOME}/.config/2bwm"
 thm_dir="${HOME}/.config/art/themes"
 tmx_dir="${HOME}/.config/tmux"
 wpa_dir="${HOME}/.config/wpa_supplicant"
 
-mkdir -p "$tbw_dir"
 mkdir -p "$art_dir"
 mkdir -p "$bin_dir"
 mkdir -p "$bsp_dir"
@@ -40,6 +39,7 @@ mkdir -p "$nvm_dir"
 mkdir -p "$red_dir"
 mkdir -p "$rgr_dir"
 mkdir -p "$sxh_dir"
+mkdir -p "$tbw_dir"
 mkdir -p "$thm_dir"
 mkdir -p "$tmx_dir"
 mkdir -p "$wpa_dir"
