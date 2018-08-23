@@ -14,7 +14,8 @@
 # SETUP
 # ---
 
-sleep 0.1
+IFS=$'\n'
+ps=( $( ps -ax | grep "brit" ) )
 
 # ---
 # LOCAL
@@ -105,4 +106,5 @@ brit.main() {
 # LAUNCH
 # ---
 
-brit.main "$1"
+# Only if no other instance of brit is already executed
+[[ ${#ps[@]} -lt 4 ]] && brit.main "$1"
