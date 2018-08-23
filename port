@@ -39,7 +39,6 @@ mkdir -p "$nvm_dir"
 mkdir -p "$red_dir"
 mkdir -p "$rgr_dir"
 mkdir -p "$sxh_dir"
-mkdir -p "$tbw_dir"
 mkdir -p "$thm_dir"
 mkdir -p "$tmx_dir"
 mkdir -p "$wpa_dir"
@@ -68,6 +67,7 @@ rsync -au ${bin_dir}/* ${git_dir}/bin
 # DOTS
 # ---
 
+[[ ! -d "${tbw_dir}" ]] && cd "${HOME}/.config" && git clone git://github.com/venam/2bwm.git
 [[ ! -d "${git_dir}/dots" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/dots.git"
 
 rsync -au ${git_dir}/dots/2bwm/* $tbw_dir
