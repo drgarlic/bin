@@ -47,7 +47,7 @@ mkdir -p "$wpa_dir"
 # ART
 # ---
 
-[[ ! -d "${git_dir}/art" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/art.git"
+[[ ! -d "${git_dir}/art" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/art.git"
 
 rsync -au --exclude ".git" --exclude "README.md" ${git_dir}/art/* $art_dir
 
@@ -57,7 +57,7 @@ rsync -au --exclude "lamp" ${art_dir}/* ${git_dir}/art
 # BIN
 # ---
 
-[[ ! -d "${git_dir}/bin" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/bin.git"
+[[ ! -d "${git_dir}/bin" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/bin.git"
 
 rsync -au --exclude ".git" --exclude "README.md" ${git_dir}/bin/* $bin_dir
 
@@ -68,7 +68,7 @@ rsync -au ${bin_dir}/* ${git_dir}/bin
 # ---
 
 [[ ! -d "${tbw_dir}" ]] && cd "${HOME}/.config" && git clone git://github.com/venam/2bwm.git
-[[ ! -d "${git_dir}/dots" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/dots.git"
+[[ ! -d "${git_dir}/dots" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/dots.git"
 
 rsync -au ${git_dir}/dots/2bwm/* $tbw_dir
 rsync -au ${git_dir}/dots/art/* ${HOME}/.config/art
@@ -104,7 +104,7 @@ rsync -au ${HOME}/.xinitrc ${git_dir}/dots/x
 # LAMP
 # ---
 
-[[ ! -d "${git_dir}/lamp" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/lamp.git"
+[[ ! -d "${git_dir}/lamp" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/lamp.git"
 
 rsync -au ${git_dir}/lamp/lamp $art_dir
 
@@ -114,7 +114,7 @@ rsync -au ${art_dir}/lamp ${git_dir}/lamp
 # LOGS
 # ---
 
-[[ ! -d "${git_dir}/log" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/log.git"
+[[ ! -d "${git_dir}/log" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/log.git"
 
 rsync -au ${git_dir}/log/log $lib_dir
 
@@ -124,7 +124,7 @@ rsync -au ${lib_dir}/log ${git_dir}/log
 # PURE
 # ---
 
-[[ ! -d "${git_dir}/pure" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/pure.git"
+[[ ! -d "${git_dir}/pure" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/pure.git"
 
 rsync -au ${git_dir}/pure/pure $lib_dir
 
@@ -134,7 +134,7 @@ rsync -au ${lib_dir}/pure ${git_dir}/pure
 # THMS
 # ---
 
-[[ ! -d "${git_dir}/thms" ]] && cd "$git_dir" && git clone "https://github.com/gawlk/thms.git"
+[[ ! -d "${git_dir}/thms" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/thms.git"
 
 rsync -au --exclude ".git" --exclude "README.md" ${git_dir}/thms/* $thm_dir
 
