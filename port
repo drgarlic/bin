@@ -24,6 +24,7 @@ nvm_dir="${HOME}/.config/nvim"
 red_dir="${HOME}/.config/redshift"
 rgr_dir="${HOME}/.config/ranger"
 sxh_dir="${HOME}/.config/sxhkd"
+st__dir="${HOME}/.config/st"
 tbw_dir="${HOME}/.config/2bwm"
 thm_dir="${HOME}/.config/art/themes"
 tmx_dir="${HOME}/.config/tmux"
@@ -39,6 +40,7 @@ mkdir -p "$nvm_dir"
 mkdir -p "$red_dir"
 mkdir -p "$rgr_dir"
 mkdir -p "$sxh_dir"
+mkdir -p "$st__dir"
 mkdir -p "$thm_dir"
 mkdir -p "$tmx_dir"
 mkdir -p "$wpa_dir"
@@ -79,6 +81,7 @@ rsync -au ${git_dir}/dots/nvim/* $nvm_dir
 rsync -au ${git_dir}/dots/ranger/* $rgr_dir
 rsync -au ${git_dir}/dots/redshift/* $red_dir
 rsync -au ${git_dir}/dots/sxhkd/* $sxh_dir
+rsync -au ${git_dir}/dots/st/* $st__dir
 rsync -au ${git_dir}/dots/tmux/* $tmx_dir
 rsync -au ${git_dir}/dots/wpa_supplicant/* $wpa_dir
 rsync -au ${git_dir}/dots/x/.[^.]* $HOME
@@ -94,6 +97,7 @@ rsync -au ${nvm_dir}/init.vim ${git_dir}/dots/nvim
 rsync -au ${rgr_dir}/* ${git_dir}/dots/ranger
 rsync -au ${red_dir}/* ${git_dir}/dots/redshift
 rsync -au ${sxh_dir}/* ${git_dir}/dots/sxhkd
+rsync -au ${st__dir}/config.h ${git_dir}/dots/st
 rsync -au ${tmx_dir}/* ${git_dir}/dots/tmux
 rsync -au ${wpa_dir}/* ${git_dir}/dots/wpa_supplicant
 rsync -au ${HOME}/.Xresources ${git_dir}/dots/x
