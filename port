@@ -98,7 +98,7 @@ rsync -au ${rgr_dir}/* ${git_dir}/dots/ranger
 rsync -au ${red_dir}/* ${git_dir}/dots/redshift
 rsync -au ${sxh_dir}/* ${git_dir}/dots/sxhkd
 rsync -au ${st__dir}/config.h ${git_dir}/dots/st
-rsync -au ${tmx_dir}/* ${git_dir}/dots/tmux
+rsync -au ${tmx_dir}/tmux.conf ${git_dir}/dots/tmux
 rsync -au ${wpa_dir}/* ${git_dir}/dots/wpa_supplicant
 rsync -au ${HOME}/.Xresources ${git_dir}/dots/x
 rsync -au ${HOME}/.Xresources.colors ${git_dir}/dots/x
