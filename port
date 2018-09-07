@@ -69,6 +69,7 @@ rsync -au ${bin_dir}/* ${git_dir}/bin
 # DOTS
 # ---
 
+[[ ! -d "${st__dir}" ]] && cd "${HOME}/.config" && git clone git://git.suckless.org/st
 [[ ! -d "${tbw_dir}" ]] && cd "${HOME}/.config" && git clone git://github.com/venam/2bwm.git
 [[ ! -d "${git_dir}/dots" ]] && cd "$git_dir" && git clone "git@github.com:gawlk/dots.git"
 
