@@ -11,6 +11,13 @@
 # Contributors:             none
 
 # ---
+# TODO
+# ---
+#
+# - Add login support
+# - Support partial wifi name
+
+# ---
 # IMPORTS
 # ---
 
@@ -25,8 +32,8 @@ dir="${HOME}/.config/wpa_supplicant"
 mkdir -p "$dir"
 conf="${dir}/wi.conf"
 
-card=( $( pure.split "$( ip link | grep "2:" )" " " ) )
-card="$( pure.rstrip "${card[1]}" ":" )"
+card=( $( pure.split "$( iw dev | grep "Interface" )" " " ) )
+card="${card[1]}"
 
 ssid=( $( pure.split "$( iw dev ${card} link | grep "SSID" )" " " ) )
 ssid="${ssid[1]}"
@@ -74,7 +81,8 @@ wi.main() {
             printf '%s\n'     "off          Stop your wifi connection"
             printf '%s\n'     "on           Start your wifi connection"
             printf '%s\n'     "remove       Remove a network from the list"
-            printf '%s\n\n'   "restart      Restart your wifi connection"
+            printf '%s\n'     "restart      Restart your wifi connection"
+            printf '%s\n\n'   "scan         Scan and display a list of available networks"
         ;;
         "info" )
             if [[ -n "$ssid" ]]
@@ -89,7 +97,7 @@ wi.main() {
             fi
         ;;
         "list" )
-            printf '\n%s\n' "List of networks:"
+            printf '\n%s\n' "List of saved networks:"
             grep -Po "(?<=    ssid=\")(.*)(?=\")" < $conf
             printf '\n'
         ;;
@@ -103,7 +111,7 @@ wi.main() {
             sudo dhcpcd -k "$card" &> /dev/null
         ;;
         "on" )
-            [ -n "$ssid" ] && log.quit "wi" "Wifi already on"
+            [[ -n "$( ps aux | pgrep "wpa_supplicant" )" ]] && log.quit "wi" "Wifi already on."
 
             sudo true
 
@@ -132,6 +140,19 @@ wi.main() {
             sleep 0.2
 
             wi on
+        ;;
+        "scan" )
+            sudo true
+
+            [[ -z "$( ps aux | pgrep "wpa_supplicant" )" ]] && wi on
+            
+            log.info "wi" "Scanning..."
+            printf '\n%s\n' "List of available networks:"
+            IFS=$'\n'
+            list=( $( sudo iw dev "$card" scan | grep -Po "(?<=SSID: ).*" ) )
+            list=( $( pure.remove_array_dups ${list[@]} ) )
+            
+            printf '%s\n' "${list[@]}"
         ;;
         "" )
             wi help
