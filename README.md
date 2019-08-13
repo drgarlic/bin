@@ -1,17 +1,25 @@
-# Scripts
+# bin
 
-**abet**: Yet another Ascii alphaBET
+## brit
 
-**brit**: A minimal brightness manager
+A minimal brightness manager
 
-**lock**: A minimal lock script
+## lock
 
-**mgnt**:  A minimal magnet getter
+A minimal lock script
 
-**port**: A very simple synchronizer
+## mgnt
 
-**rmng**: Display the battery life
+A minimal magnet getter
 
-**shot**: A minimal screenshot manager
+## port
 
-**wi**: A minimal wifi manager
+A very simple dotfiles synchronizer
+
+## rmng
+
+A simple battery life displayer
+
+## shot
+
+A minimal screenshot manager
